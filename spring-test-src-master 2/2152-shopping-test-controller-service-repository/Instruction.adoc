@@ -1,0 +1,19 @@
+== ハンズオン
+
+=== 概要
+
+Controller・Service・Repositoryのインテグレーションテストを作成します。
+
+=== 手順
+
+. CatalogControllerのテストクラス(インテグレーションテスト)を作成してください。CatalogControllerにはdisplayListメソッドとdisplayDetailsメソッドがありますが、どちらか片方だけテストできればよいことにします。テストデータを登録するためのSQLファイルとして、src/test/resources配下のCatalogControllerIntegrationTest.sqlを用意しているので使用してください。
+
+. OrderControllerIntegrationTestクラスの中身を見てみましょう。test_orderメソッドは、OrderControllerクラスのorderメソッドをテストするためのテストメソッドです。performメソッドの記述は行っていますが、アサーションを行っていません。アサーションで以下を確認しましょう。
+.. t_orderテーブルに登録されたレコードの、「customer_name」「customer_phone」「customer_address」カラムの値が正しいこと
+
+NOTE: t_orderテーブルのレコードのIDは、Modelの中に入っているOrderオブジェクトを参照してください。Modelの中のOrderオブジェクトの属性名は、OrderControllerクラスのorderメソッドを参照してください。
+
+=== オプション
+
+. 注文された商品の在庫数が期待通りに減っていることを確認しましょう。どの商品をいくつ注文したかは、OrderControllerクラスのdummyCartInputメソッドを参照してください。
+

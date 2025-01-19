@@ -1,0 +1,36 @@
+== ハンズオン
+
+=== 概要
+
+ServiceとRepositoryのインテグレーションテストを作成します。
+
+=== 手順
+
+. インテグレーションテスト用のテストクラスを作成しましょう。テスト用のデータは、src/test/resources配下のCatalogServiceTest.sqlに用意されています。CatalogServiceオブジェクトの以下のメソッドをテストしてください。
+.. findAllメソッド
+... 最低限、取得件数が期待通りになっていることを確認しましょう。
+.. findByIdメソッド
+... 適当なIDで検索し、Productオブジェクトの中身が期待通りか確認しましょう。
+
+. OrderServiceのテストメソッドを完成させましょう。OrderServiceTestにテストメソッド(test_placeOrderメソッド)が記述されていますが、placeOrderメソッドを呼び出した後、何もチェックしていません。 JdbcTemplateを使ってデータベースにアクセスして、最低限以下を確認しましょう。
+.. 発行された注文IDを使って注文データを検索し、取得した注文データの顧客名や住所が期待通りになっている
+.. 発行された注文IDに紐づく注文明細データの件数が期待通りになっている
+.. 注文した商品の在庫数が期待通りに変わっている
+
+NOTE: 注文テーブル、注文明細テーブル、商品テーブルのテーブル名やカラム名は、0002-shopping-commonプロジェクトのsrc/main/resources/schema.sqlを参照してください。
+
+NOTE: 登録された注文レコードのIDは、placeOrderメソッドの戻り値で返ってきたOrderオブジェクトのgetId()メソッドで取得できます
+
+[NOTE]
+--
+レコードの件数をJdbcTemplateで取得する際は、以下のような記述をします。
+----
+int count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM t_order_item WHERE order_id=?", Integer.class, order.getId());
+----
+--
+
+
+=== オプション
+
+. 在庫が足りないときに、期待する例外がスローされることを確認する異常系のテストメソッドを追加しましょう。例外がスローされることをAssertJを使ってアサーションする方法は、ネットで調べてみましょう。
+

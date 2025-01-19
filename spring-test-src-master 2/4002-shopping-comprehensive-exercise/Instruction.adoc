@@ -1,0 +1,48 @@
+:imagesdir: images
+
+== 総合演習
+
+=== 概要
+
+注文データをメンテナンスする管理者向けのアプリケーションをテストします。
+
+このアプリケーションの画面遷移は以下のようになっています。
+
+image::screen-transition.png[]
+
+ShoppingApplicaitionを実行し、 http://localhost:8080/maintenance/order/display-list にアクセスしましょう。 注文一覧画面が表示されて、画面遷移通りに動作するはずです。
+
+動作の確認ができたら、さっそくテストクラスを作っていきましょう。
+
+=== 手順
+
+. Repositoryのユニットテストを行います。JdbcOrderRepositoryクラスをユニットテストするテストクラスを作成してください。最低限以下が確認できればOKとします。
+.. updateメソッド：t_orderテーブルのカラムが更新されること(いくつかのカラムだけで大丈夫です)
+.. selectByIdメソッド：指定したIDの注文データが取得されること(いくつかのプロパティだけ確認できれば大丈夫です)
+.. selectAllメソッド：期待する件数のデータが取得されること
++
+なお、data.sqlは読み込まない設定をしているので(src/test/resources/application-default.propertiesを参照)、テストクラス用のSQLファイルを新規に作成して読み込む必要があります。
+
+. RepositoryとServiceのインテグレーションテストを行います。最低限以下が確認できればOKとします。
+.. updateメソッド：t_orderテーブルのカラムが更新されること(いくつかのカラムだけで大丈夫です)
+
+. Controllerのユニットテストを行います。最低限以下が確認できればOKとします。
+.. displayUpdateFormメソッド
+... OrderMaintenanceServiceインタフェースのfindByIdメソッドが呼び出されること
+... ステータスコード200 OKが返されると
+... ビュー名が適切なこと
+.. validateUpdateFormメソッド
+... 入力項目に不備があった際に、期待する入力チェックエラーが発生すること(いくつかの入力項目だけで大丈夫です)。また、ビュー名が適切なこと
+
+=== オプション
+
+. 以下の異常系のテストを追加しましょう。
+.. Repositoryのユニットテスト
+... updateメソッド：更新に失敗した際(更新件数が0件だった場合)の挙動
+... selectByIdメソッド：指定したIDのデータが存在しなかった場合の挙動
+.. RepositoryとServiceのインテグレーションテスト
+... updateメソッド：更新に失敗した際(更新件数が0件だった場合)の挙動
+
+. OrderMaintenanceServiceImplのユニットテストを作成しましょう。
+
+. Controller・Service・Repositoryのインテグレーションテストを作成しましょう。

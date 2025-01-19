@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注文更新完了</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>注文更新完了</h1>
+<div th:if="${orderId != null}">更新した注文ID「<span th:text="${orderId}"></span>」</div>
+<a th:href="@{/maintenance/order/display-list}">注文一覧に戻る</a>
+</body>
+</html>

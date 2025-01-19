@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注文更新確認</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>注文更新確認</h1>
+<form th:action="@{/maintenance/order/update}" method="post" th:object="${orderMaintenanceInput}">
+    <table>
+        <tr>
+            <th>注文ID</th>
+            <td><span th:text="*{id}"></span></td>
+        </tr>
+        <tr>
+            <th>注文日時</th>
+            <td><span th:text="*{orderDateTime}"></span></td>
+        </tr>
+        <tr>
+            <th>請求金額</th>
+            <td>
+                <span th:text="*{billingAmount}"></span>円
+            </td>
+        </tr>
+        <tr>
+            <th>顧客名</th>
+            <td>
+                <span th:text="*{customerName}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>住所</th>
+            <td>
+                <span th:text="*{customerAddress}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>電話番号</th>
+            <td>
+                <span th:text="*{customerPhone}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Eメール</th>
+            <td>
+                <span th:text="*{customerEmailAddress}"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>支払方法</th>
+            <td>
+                <span th:if="*{paymentMethod != null && paymentMethod.toString() == 'BANK'}">銀行振込</span>
+                <span
+                    th:if="*{paymentMethod != null && paymentMethod.toString() == 'CONVENIENCE_STORE'}">コンビニ払い</span>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" th:field="*{id}"/>
+    <input type="hidden" th:field="*{orderDateTime}"/>
+    <input type="hidden" th:field="*{billingAmount}"/>
+    <input type="hidden" th:field="*{customerName}"/>
+    <input type="hidden" th:field="*{customerAddress}"/>
+    <input type="hidden" th:field="*{customerPhone}"/>
+    <input type="hidden" th:field="*{customerEmailAddress}"/>
+    <input type="hidden" th:field="*{paymentMethod}"/>
+
+    <input type="submit" name="correct" value="戻る"/>
+    <input type="submit" name="update" value="更新"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>注文一覧</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>注文一覧</h1>
+<table>
+    <tr>
+        <th>注文ID</th>
+        <th>注文日時</th>
+        <th>顧客名</th>
+        <th>住所</th>
+        <th>電話番号</th>
+        <th>メールアドレス</th>
+        <th>お支払い方法</th>
+        <th>請求金額</th>
+    </tr>
+    <tr th:each="order:${orderList}">
+        <td><a th:href="@{/maintenance/order/display-update-form(id=${order.id})}"><span
+            th:text="${order.id}"></span></a></td>
+        <td><span th:text="${order.orderDateTime}"></span></td>
+        <td><span th:text="${order.customerName}"></span></td>
+        <td><span th:text="${order.customerAddress}"></span></td>
+        <td><span th:text="${order.customerPhone}"></span></td>
+        <td><span th:text="${order.customerEmailAddress}"></span></td>
+        <td>
+            <span th:if="*{order.paymentMethod != null && order.paymentMethod.toString() == 'BANK'}">銀行振込</span>
+            <span
+                th:if="*{order.paymentMethod != null && order.paymentMethod.toString() == 'CONVENIENCE_STORE'}">コンビニ払い</span>
+        </td>
+        <td><span th:text="${order.billingAmount}"></span>円</td>
+    </tr>
+</table>
+</body>
+</html>

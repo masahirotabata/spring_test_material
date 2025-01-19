@@ -1,0 +1,19 @@
+== ハンズオン
+
+=== 概要
+
+セッションスコープのBeanを使用したアプリケーションをテストします。
+
+=== 手順
+
+. OrderControllerの中身を見てみましょう。validateInputメソッドの中で、OrderInputオブジェクトをセッションスコープのBean(OrderSessionオブジェクト)に格納しています。また、orderメソッドの中では、セッションスコープのBeanからOrderInputオブジェクトを取得し、OrderServiceオブジェクトのplaceOrderメソッドの引数に渡しています。
+
+. OrderControllerTestクラスの中身を見てみましょう。test_validateInputメソッドでは、view名の確認はできていますが、セッションスコープに注文者の情報が格納されたことを確認できていません。セッションスコープに注文者の情報が格納されたことをアサーションするコードを追記してください。
+
+. test_orderメソッドでは、OrderControllerクラスのorderメソッドのテストを行っています。フラッシュスコープの中身とリダイレクトURLの確認はできていますが、セッションスコープの中のOrderInputオブジェクトがきちんと使われたことは確認できていません。セッションスコープの中のOrderInputオブジェクトが使われたことを確認するコードを追記しましょう。
+
+=== オプション
+
+. Controller・Service・Repositoryのインテグレーションテストのクラスを作成し、同等のテストを行ってみましょう。
+
+

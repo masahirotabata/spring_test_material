@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>注文更新</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>注文更新</h1>
+<form th:action="@{/maintenance/order/validate-update-input}" method="post" th:object="${orderMaintenanceInput}">
+    <table>
+        <tr>
+            <th>注文ID</th>
+            <td>
+                <span th:text="*{id}"></span>
+                <input type="hidden" th:field="*{id}">
+            </td>
+        </tr>
+        <tr>
+            <th>注文日時</th>
+            <td>
+                <span th:text="*{orderDateTime}"></span>
+                <input type="hidden" th:field="*{orderDateTime}">
+            </td>
+        </tr>
+        <tr>
+            <th>請求金額</th>
+            <td>
+                <span th:text="*{billingAmount}"></span>円
+                <input type="hidden" th:field="*{billingAmount}">
+            </td>
+        </tr>
+        <tr>
+            <th>顧客名</th>
+            <td>
+                <input type="text" th:field="*{customerName}">
+                <div th:errors="*{customerName}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>住所</th>
+            <td>
+                <input type="text" th:field="*{customerAddress}">
+                <div th:errors="*{customerAddress}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>電話番号</th>
+            <td>
+                <input type="text" th:field="*{customerPhone}">
+                <div th:errors="*{customerPhone}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>Eメール</th>
+            <td>
+                <input type="text" th:field="*{customerEmailAddress}">
+                <div th:errors="*{customerEmailAddress}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>支払方法</th>
+            <td>
+                <input type="radio" id="bankRadio" value="BANK" th:field="*{paymentMethod}"/>
+                <label for="bankRadio">銀行振込</label>
+                <input type="radio" id="convenienceStoreRadio" value="CONVENIENCE_STORE" th:field="*{paymentMethod}"/>
+                <label for="convenienceStoreRadio">コンビニ払い</label>
+            </td>
+        </tr>
+    </table>
+    <div sec:authorize="hasAuthority('MANAGER')">
+        <input type="submit" name="update" value="更新"/>
+    </div>
+    <div><a th:href="@{/maintenance/order/display-list}">注文一覧に戻る</a></div>
+</form>
+</body>
+</html>
